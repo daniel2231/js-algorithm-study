@@ -5,8 +5,9 @@ on:
   push:
     branches: [ main ]
   schedule:
+    # 매일 오전 9시에 자동 실행 (KST 기준 오후 6시)
     - cron: '0 9 * * *'
-  workflow_dispatch: 
+  workflow_dispatch: # 수동 실행 가능
 
 jobs:
   update-progress:
@@ -30,7 +31,8 @@ jobs:
         const path = require('path');
 
         // 설정
-        const WEEKS = 16;
+        const START_WEEK = 2;  // 2주차부터 시작
+        const END_WEEK = 16;   // 16주차까지
         const PROBLEMS_PER_WEEK = 2;
         const README_PATH = 'README.md';
 
@@ -83,7 +85,7 @@ jobs:
           });
           table += '\n';
 
-          for (let week = 1; week <= WEEKS; week++) {
+          for (let week = START_WEEK; week <= END_WEEK; week++) {
             table += `| ${week}주 |`;
             
             members.forEach(member => {
@@ -151,15 +153,16 @@ jobs:
           
           members.forEach(member => {
             let totalCompleted = 0;
-            for (let week = 1; week <= WEEKS; week++) {
+            for (let week = START_WEEK; week <= END_WEEK; week++) {
               totalCompleted += countWeekFiles(member, week);
             }
-            const totalPossible = WEEKS * PROBLEMS_PER_WEEK;
+            const totalPossible = (END_WEEK - START_WEEK + 1) * PROBLEMS_PER_WEEK;
             const percentage = ((totalCompleted / totalPossible) * 100).toFixed(1);
             console.log(`- ${member}: ${totalCompleted}/${totalPossible} (${percentage}%)`);
           });
         }
 
+        // 메인 실행
         function main() {
           console.log('🔄 진도 현황 업데이트 시작...');
           
