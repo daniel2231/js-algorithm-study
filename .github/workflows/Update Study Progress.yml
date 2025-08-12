@@ -30,13 +30,15 @@ jobs:
         const fs = require('fs');
         const path = require('path');
 
-        // 설정
+        // 설정 
+        // TODO: Week이랑 PPW 바뀌면 꼭 update!!!
         const START_WEEK = 2;  // 2주차부터 시작
         const END_WEEK = 16;   // 16주차까지
         const PROBLEMS_PER_WEEK = 2;
         const README_PATH = 'README.md';
 
         // 멤버 폴더 스캔
+        // TODO: omit script file (Work you lazy ass human)
         function getMembers() {
           const items = fs.readdirSync('.', { withFileTypes: true });
           return items
@@ -56,7 +58,8 @@ jobs:
           }
           
           const files = fs.readdirSync(weekPath);
-          // .js 파일만 카운트
+          // .js 파일만 카운트 
+          // TODO: check this part
           return files.filter(file => file.endsWith('.js')).length;
         }
 

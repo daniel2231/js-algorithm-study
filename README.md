@@ -10,9 +10,9 @@
 
 
 ## 👥 스터디원
-| <a href="https://github.com/daniel2231"><img src="https://avatars.githubusercontent.com/u/39212398?v=4" width="150px"/></a> |
-| --- | 
-| 강동헌 (스터디장) | 
+| <a href="https://github.com/daniel2231"><img src="https://avatars.githubusercontent.com/u/39212398?v=4" width="150px"/></a> | <a href="https://github.com/dani1552"><img src="https://avatars.githubusercontent.com/u/150661115?v=4" width="150px"/></a> | <a href="https://github.com/seah526"><img src="https://avatars.githubusercontent.com/u/50127687?v=4" width="150px"/></a> |
+| --- | --- | --- |
+| [강동헌 (스터디장)](https://github.com/daniel2231) | [김다은](https://github.com/dani1552) | [임세아](https://github.com/seah526) |
 
 
 ## 📁 Repository 구조
