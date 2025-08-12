@@ -8,8 +8,9 @@
 
 
 ## 👥 스터디원
-- **스터디장**: 강동헌
-- **멤버**: TBD
+| <a href="https://github.com/daniel2231"><img src="https://avatars.githubusercontent.com/u/39212398?v=4" width="150px"/></a> |
+| --- | 
+| 강동헌 | 
 
 
 ## 📁 Repository 구조
@@ -37,7 +38,6 @@ js-coding-test-study/
     └── ...
 ```
 
----
 
 ## 📝 파일 명명 규칙
 
