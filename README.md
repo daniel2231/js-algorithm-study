@@ -6,13 +6,11 @@
 - **코딩테스트 합격** 및 **취업 성공**
 - 알고리즘 사고력 향상
 
----
 
 ## 👥 스터디원
 - **스터디장**: 강동헌
 - **멤버**: TBD
 
----
 
 ## 📁 Repository 구조
 
@@ -54,7 +52,6 @@ js-coding-test-study/
 - 홀짝트리.js
 ```
 
----
 
 ## 📅 커리큘럼 & 진도 현황
 
@@ -85,7 +82,6 @@ js-coding-test-study/
 아직 멤버가 없습니다. 폴더를 생성해주세요.
 <!-- PROGRESS_END -->
 
----
 
 ## 🚀 사용법
 
@@ -95,12 +91,12 @@ git clone https://github.com/username/js-coding-test-study.git
 cd js-coding-test-study
 ```
 
-### **2. 개인 폴더 생성**
+### **2. 개인 폴더에 주차 폴더 생성**
 ```bash
-mkdir 본인이름
-cd 본인이름
 mkdir week01
 ```
+
+주차 폴더 포멧: `weekXX` (XX는 주차 번호)
 
 ### **3. 문제 풀이 후 업로드**
 ```bash
@@ -114,7 +110,6 @@ git commit -m "[Week01] feat: 배열 기초 문제 2개 완료"
 git push origin main
 ```
 
----
 
 ## 📋 스터디 규칙
 
@@ -139,12 +134,8 @@ git push origin main
 - **면제 조건**: 시도한 코드 또는 필기 인증 시
 - **기타**: 스터디 첫 모임에서 상세 규칙 논의
 
----
 
 ## 🔗 관련 링크
 
 - **📚 교재**: [코딩 테스트 합격자 되기: 자바스크립트 편](https://product.kyobobook.co.kr/detail/S000213641007)
 - **📝 스터디 노션**: TBD
-
-
----
