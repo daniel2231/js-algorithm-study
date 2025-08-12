@@ -1,0 +1,209 @@
+# .github/workflows/update-progress.yml
+name: Update Study Progress
+
+on:
+  push:
+    branches: [ main ]
+  schedule:
+    - cron: '0 9 * * *'
+  workflow_dispatch: 
+
+jobs:
+  update-progress:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18'
+        
+    - name: Create progress update script
+      run: |
+        cat > update-progress.js << 'EOF'
+        const fs = require('fs');
+        const path = require('path');
+
+        // 설정
+        const WEEKS = 16;
+        const PROBLEMS_PER_WEEK = 2;
+        const README_PATH = 'README.md';
+
+        // 멤버 폴더 스캔
+        function getMembers() {
+          const items = fs.readdirSync('.', { withFileTypes: true });
+          return items
+            .filter(item => item.isDirectory() && 
+                          !item.name.startsWith('.') && 
+                          !['node_modules', 'docs', 'resources'].includes(item.name))
+            .map(item => item.name)
+            .sort();
+        }
+
+        // 주차별 파일 개수 체크
+        function countWeekFiles(member, week) {
+          const weekPath = path.join(member, `week${week.toString().padStart(2, '0')}`);
+          
+          if (!fs.existsSync(weekPath)) {
+            return 0;
+          }
+          
+          const files = fs.readdirSync(weekPath);
+          // .js 파일만 카운트
+          return files.filter(file => file.endsWith('.js')).length;
+        }
+
+        // 진도 상태 이모지 반환
+        function getStatusEmoji(completed, total) {
+          if (completed >= total) return '✅';
+          if (completed > 0) return '⚠️';
+          return '❌';
+        }
+
+        // 진도 현황 테이블 생성
+        function generateProgressTable() {
+          const members = getMembers();
+          
+          if (members.length === 0) {
+            return '아직 멤버가 없습니다. 폴더를 생성해주세요.';
+          }
+
+          let table = '| 주차 |';
+          members.forEach(member => {
+            table += ` ${member} |`;
+          });
+          table += '\n|------|';
+          members.forEach(() => {
+            table += '-------|';
+          });
+          table += '\n';
+
+          for (let week = 1; week <= WEEKS; week++) {
+            table += `| ${week}주 |`;
+            
+            members.forEach(member => {
+              const completed = countWeekFiles(member, week);
+              const status = getStatusEmoji(completed, PROBLEMS_PER_WEEK);
+              table += ` ${status} ${completed}/${PROBLEMS_PER_WEEK} |`;
+            });
+            
+            table += '\n';
+          }
+
+          // 범례 추가
+          table += '\n**범례:**\n';
+          table += '- ✅ 2/2: 완료\n';
+          table += '- ⚠️ 1/2: 진행중  \n';
+          table += '- ❌ 0/2: 미완료\n\n';
+          
+          // 업데이트 시간 추가
+          const now = new Date();
+          const kstTime = new Date(now.getTime() + (9 * 60 * 60 * 1000)); // KST 변환
+          table += `**최종 업데이트:** ${kstTime.toLocaleString('ko-KR', {timeZone: 'Asia/Seoul'})}`;
+
+          return table;
+        }
+
+        // README.md 업데이트
+        function updateReadme() {
+          if (!fs.existsSync(README_PATH)) {
+            console.log('README.md 파일이 없습니다.');
+            return false;
+          }
+
+          let content = fs.readFileSync(README_PATH, 'utf8');
+          const progressTable = generateProgressTable();
+
+          // PROGRESS_START와 PROGRESS_END 사이의 내용을 교체
+          const startMarker = '<!-- PROGRESS_START -->';
+          const endMarker = '<!-- PROGRESS_END -->';
+          
+          const startIndex = content.indexOf(startMarker);
+          const endIndex = content.indexOf(endMarker);
+          
+          if (startIndex === -1 || endIndex === -1) {
+            console.log('진도 현황 마커를 찾을 수 없습니다.');
+            return false;
+          }
+
+          const beforeMarker = content.substring(0, startIndex + startMarker.length);
+          const afterMarker = content.substring(endIndex);
+          
+          const newContent = beforeMarker + '\n' + progressTable + '\n' + afterMarker;
+          
+          fs.writeFileSync(README_PATH, newContent, 'utf8');
+          console.log('README.md가 성공적으로 업데이트되었습니다.');
+          
+          return true;
+        }
+
+        // 통계 출력
+        function printStatistics() {
+          const members = getMembers();
+          console.log(`\n📊 스터디 현황:`);
+          console.log(`- 멤버 수: ${members.length}명`);
+          console.log(`- 멤버: ${members.join(', ')}`);
+          
+          members.forEach(member => {
+            let totalCompleted = 0;
+            for (let week = 1; week <= WEEKS; week++) {
+              totalCompleted += countWeekFiles(member, week);
+            }
+            const totalPossible = WEEKS * PROBLEMS_PER_WEEK;
+            const percentage = ((totalCompleted / totalPossible) * 100).toFixed(1);
+            console.log(`- ${member}: ${totalCompleted}/${totalPossible} (${percentage}%)`);
+          });
+        }
+
+        function main() {
+          console.log('🔄 진도 현황 업데이트 시작...');
+          
+          const success = updateReadme();
+          if (success) {
+            printStatistics();
+            console.log('✅ 진도 현황 업데이트 완료!');
+          } else {
+            console.log('❌ 진도 현황 업데이트 실패');
+            process.exit(1);
+          }
+        }
+
+        main();
+        EOF
+
+    - name: Run progress update
+      run: node update-progress.js
+      
+    - name: Check for changes
+      id: verify-changed-files
+      run: |
+        if git diff --exit-code README.md; then
+          echo "changed=false" >> $GITHUB_OUTPUT
+        else
+          echo "changed=true" >> $GITHUB_OUTPUT
+        fi
+        
+    - name: Commit changes
+      if: steps.verify-changed-files.outputs.changed == 'true'
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git add README.md
+        git commit -m "📊 자동 업데이트: 스터디 진도 현황 갱신"
+        git push
+        
+    - name: Summary
+      if: steps.verify-changed-files.outputs.changed == 'true'
+      run: |
+        echo "✅ README.md 진도 현황이 자동으로 업데이트되었습니다!"
+        echo "📊 최신 진도 현황을 확인해보세요."
+        
+    - name: No changes
+      if: steps.verify-changed-files.outputs.changed == 'false'
+      run: |
+        echo "ℹ️ 변경사항이 없어 업데이트를 건너뜁니다."
