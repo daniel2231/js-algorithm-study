@@ -2,6 +2,8 @@
 
 > 『코딩 테스트 합격자 되기: 자바스크립트 편』 기반 16주 스터디
 
+![book image](https://contents.kyobobook.co.kr/sih/fit-in/458x0/pdt/9791191905885.jpg)
+
 ## 🎯 스터디 목표
 - **코딩테스트 합격** 및 **취업 성공**
 - 알고리즘 사고력 향상
@@ -10,7 +12,7 @@
 ## 👥 스터디원
 | <a href="https://github.com/daniel2231"><img src="https://avatars.githubusercontent.com/u/39212398?v=4" width="150px"/></a> |
 | --- | 
-| 강동헌 | 
+| 강동헌 (스터디장) | 
 
 
 ## 📁 Repository 구조
