@@ -10,9 +10,9 @@
 
 
 ## 👥 스터디원
-| <a href="https://github.com/daniel2231"><img src="https://avatars.githubusercontent.com/u/39212398?v=4" width="150px"/></a> | <a href="https://github.com/dani1552"><img src="https://avatars.githubusercontent.com/u/150661115?v=4" width="150px"/></a> | <a href="https://github.com/seah526"><img src="https://avatars.githubusercontent.com/u/50127687?v=4" width="150px"/></a> |
-| --- | --- | --- |
-| [강동헌 (스터디장)](https://github.com/daniel2231) | [김다은](https://github.com/dani1552) | [임세아](https://github.com/seah526) |
+| <a href="https://github.com/daniel2231"><img src="https://avatars.githubusercontent.com/u/39212398?v=4" width="150px"/></a> | <a href="https://github.com/dani1552"><img src="https://avatars.githubusercontent.com/u/150661115?v=4" width="150px"/></a> | <a href="https://github.com/seah526"><img src="https://avatars.githubusercontent.com/u/50127687?v=4" width="150px"/></a> |  <a href="https://github.com/jjaneyxx"><img src="https://avatars.githubusercontent.com/u/176101105?v=4" width="150px"/></a> |
+| --- | --- | --- | --- |
+| [강동헌](https://github.com/daniel2231) | [김다은](https://github.com/dani1552) | [임세아](https://github.com/seah526) | [장해명](https://github.com/jjaneyxx) |
 
 
 ## 📁 Repository 구조
@@ -22,12 +22,12 @@ js-coding-test-study/
 ├── README.md
 ├── 강동헌/
 │   ├── week01/
-│   │   ├── 01-배열정렬하기.js
-│   │   ├── 02-배열제어하기.js
+│   │   ├── 배열정렬하기.js
+│   │   ├── 배열제어하기.js
 │   │   └── README.md
 │   ├── week02/
-│   │   ├── 08-괄호짝맞추기.js
-│   │   ├── 09-10진수를2진수로변환하기.js
+│   │   ├── 괄호짝맞추기.js
+│   │   ├── 10진수를2진수로변환하기.js
 │   │   └── README.md
 │   └── ...
 ├── 멤버2/
@@ -144,7 +144,7 @@ git push origin main
 - **토요일 스터디 전까지** 업로드 완료
 - **꾸준한 참여** (16주 완주 목표)
 
-### **📝 커밋 메시지 형식**
+### **📝 커밋 메시지 형식 (권장사항)**
 ```
 [WeekXX] 타입: 설명
 
