@@ -130,6 +130,8 @@ touch week01/배열정렬하기.js
 touch week01/배열제어하기.js
 
 # 코드 작성 후
+# readme가 자주 바뀌기 때문에 꼭 pull하는걸 잊지 말 것!!!!!!!! #
+git pull origin main
 git add .
 git commit -m "[Week01] feat: 배열 기초 문제 2개 완료"
 git push origin main
