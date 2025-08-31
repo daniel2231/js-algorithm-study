@@ -34,7 +34,7 @@ jobs:
         // TODO: Week이랑 PPW 바뀌면 꼭 update!!!
         const START_WEEK = 2;  // 2주차부터 시작
         const END_WEEK = 16;   // 16주차까지
-        const PROBLEMS_PER_WEEK = 2;
+        const PROBLEMS_PER_WEEK = 3;
         const README_PATH = 'README.md';
 
         // 멤버 폴더 스캔
