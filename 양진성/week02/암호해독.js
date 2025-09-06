@@ -27,4 +27,4 @@ for (let i = 0; i < Length; i++) {
   wordMap.set(keys[i], word.join(""));
 }
 // Symbol sort 안됨
-const newSort = keys.sort();
+// const newSort = keys.sort();
